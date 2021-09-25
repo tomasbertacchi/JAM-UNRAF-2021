@@ -61,6 +61,13 @@ export default class preloader extends Phaser.Scene
             repeat: 0,
             frameRate: 10,
         });
+
+        this.anims.create({
+            key: 'escudo',
+            frames: this.anims.generateFrameNumbers('personaje3', { start: 33, end: 34 }),
+            repeat: 0,
+            frameRate: 10,
+        });
     
         this.scene.start("menu")
     }

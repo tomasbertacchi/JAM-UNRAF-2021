@@ -8,9 +8,12 @@ export default class game extends Phaser.Scene
     private cursores!: Phaser.Types.Input.Keyboard.CursorKeys
     private cursor_A!: Phaser.Input.Keyboard.Key
     private cursor_D!: Phaser.Input.Keyboard.Key
+    private cursor_S!: Phaser.Input.Keyboard.Key
     private cursor_CTRL!: Phaser.Input.Keyboard.Key
     private debeMoverse!: Boolean
     private estaAtacando!: Boolean
+    private seDefiende!: Boolean
+    private seDefiende2!: Boolean
     private debeMoverse2!: Boolean
     private estaAtacando2!: Boolean
     private timer!: number
@@ -26,13 +29,16 @@ export default class game extends Phaser.Scene
         this.scene.run("ui")
         this.estaAtacando = false
         this.debeMoverse = true
+        this.seDefiende = false
         this.estaAtacando2 = false
         this.debeMoverse2 = true
+        this.seDefiende2 = false
         this.vidas= 1
         this.vidas2= 1
         this.cursores = this.input.keyboard.createCursorKeys()
         this.cursor_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.cursor_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
+        this.cursor_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.cursor_CTRL = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL);
         //plataformas
         this.plataformas = this.physics.add.staticGroup();
@@ -48,6 +54,7 @@ export default class game extends Phaser.Scene
         this.physics.add.collider(this.personaje, this.plataformas);
         this.physics.add.collider(this.personaje2, this.plataformas);
         this.physics.add.collider(this.personaje, this.personaje2, ()=>{this.ataque()})
+        this.physics.add.collider(this.personaje, this.personaje2, ()=>{this.defensa()})
         
         
         this.personaje.play("idle");
@@ -73,7 +80,7 @@ export default class game extends Phaser.Scene
         }
         
         //ATAQUE
-        if(Phaser.Input.Keyboard.JustDown(this.cursores.space) && this.estaAtacando == false){
+        if(Phaser.Input.Keyboard.JustDown(this.cursores.space) && this.estaAtacando == false && this.seDefiende == false){
             this.debeMoverse = false
             this.estaAtacando = true
             this.personaje.setVelocityX(0)
@@ -84,6 +91,17 @@ export default class game extends Phaser.Scene
                 
             } 
             
+        }
+
+        if(this.cursor_S.isDown && this.seDefiende == false && this.estaAtacando == false){
+            this.debeMoverse = false
+            this.seDefiende = true
+            this.personaje.setVelocityX(0)
+            if(this. seDefiende == true){
+                this.personaje.play("escudo")
+                .on("animationcomplete", () => {this.personaje.play("idle",true); this.debeMoverse = true; this.seDefiende = false; this.personaje.setSize(15,35)})   
+            } 
+
         }
         
         //CONTROLES PERSONAJE 2
@@ -113,6 +131,17 @@ export default class game extends Phaser.Scene
             } 
        }
 
+       if(this.cursores.down.isDown && this.seDefiende2 == false && this.estaAtacando2 == false){
+        this.debeMoverse2 = false
+        this.seDefiende2 = true
+        this.personaje2.setVelocityX(0)
+        if(this. seDefiende2 == true){
+            this.personaje2.play("escudo")
+            .on("animationcomplete", () => {this.personaje2.play("idle",true); this.debeMoverse2 = true; this.seDefiende2 = false; this.personaje2.setSize(15,35)})   
+        }
+    } 
+
+
         //Vida2
             if(this.vidas2 === 0){
                 this.debeMoverse2 = false
@@ -132,18 +161,33 @@ export default class game extends Phaser.Scene
     ataque(){
 
 
-        if(this.estaAtacando === true){
+        if(this.estaAtacando === true && this.seDefiende2 === false){
             this.vidas2 = this.vidas2 - 1
             console.log("atacando")
             console.log(this.vidas2)
         }
 
-        if(this.estaAtacando2 === true){
+        if(this.estaAtacando2 === true && this.seDefiende === false){
             this.vidas = this.vidas - 1
             console.log("atacando2")
             console.log(this.vidas)
         }
 
+    }
+
+    defensa(){
+
+        if(this.estaAtacando === true && this.seDefiende2 === true){
+            this.vidas2 = this.vidas2 + 1
+            console.log("atacando")
+            console.log(this.vidas2)
+        }
+
+        if(this.estaAtacando2 === true && this.seDefiende === true){
+            this.vidas = this.vidas + 1
+            console.log("atacando2")
+            console.log(this.vidas)
+        }
     }
 
 }
