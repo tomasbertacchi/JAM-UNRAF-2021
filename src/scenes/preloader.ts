@@ -47,7 +47,21 @@ export default class preloader extends Phaser.Scene
             repeat: 0,
             frameRate: 10,
         });
+
+        this.anims.create({
+            key: 'muerte1',
+            frames: this.anims.generateFrameNumbers('personaje3', { start: 65, end: 68 }),
+            repeat: 0,
+            frameRate: 10,
+        });
+
+        this.anims.create({
+            key: 'muerte2',
+            frames: this.anims.generateFrameNumbers('personaje3', { start: 65, end: 68 }),
+            repeat: 0,
+            frameRate: 10,
+        });
     
-        this.scene.start("game")
+        this.scene.start("menu")
     }
 }

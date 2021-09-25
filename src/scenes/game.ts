@@ -14,6 +14,8 @@ export default class game extends Phaser.Scene
     private debeMoverse2!: Boolean
     private estaAtacando2!: Boolean
     private timer!: number
+    private vidas!: number
+    private vidas2!: number
 
 	constructor()
 	{
@@ -26,6 +28,8 @@ export default class game extends Phaser.Scene
         this.debeMoverse = true
         this.estaAtacando2 = false
         this.debeMoverse2 = true
+        this.vidas= 1
+        this.vidas2= 1
         this.cursores = this.input.keyboard.createCursorKeys()
         this.cursor_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.cursor_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -43,7 +47,7 @@ export default class game extends Phaser.Scene
         this.personaje2.setSize(15,35)
         this.physics.add.collider(this.personaje, this.plataformas);
         this.physics.add.collider(this.personaje2, this.plataformas);
-        this.physics.add.collider(this.personaje, this.personaje2)
+        this.physics.add.collider(this.personaje, this.personaje2, ()=>{this.ataque()})
         
         
         this.personaje.play("idle");
@@ -74,7 +78,7 @@ export default class game extends Phaser.Scene
             this.estaAtacando = true
             this.personaje.setVelocityX(0)
             if(this. estaAtacando == true){
-                this.personaje.setSize(30,35)
+                this.personaje.setSize(43,35)
                 this.personaje.play("ataque1")
                 .on("animationcomplete", () => {this.personaje.play("idle",true); this.debeMoverse = true; this.estaAtacando = false; this.personaje.setSize(15,35)})
                 
@@ -98,15 +102,48 @@ export default class game extends Phaser.Scene
         this.personaje2.play("idle",true)
     }
         // ATAQUE
-       if(this.cursor_CTRL.isDown && this.estaAtacando2 == false){
+       if(Phaser.Input.Keyboard.JustDown(this.cursor_CTRL) && this.estaAtacando2 == false){
             this.debeMoverse2 = false
             this.estaAtacando2 = true
             this.personaje2.setVelocityX(0)
             if(this.estaAtacando2 == true){
-                this.personaje2.setSize(30,35)
+                this.personaje2.setSize(43,35)
                 this.personaje2.play("ataque2")
                 .on("animationcomplete", () => {this.personaje2.play("idle",true); this.debeMoverse2 = true; this.estaAtacando2 = false; this.personaje2.setSize(15,35)})
             } 
        }
+
+        //Vida2
+            if(this.vidas2 === 0){
+                this.debeMoverse2 = false
+                this.personaje2.setVelocityX(0)
+                this.personaje2.play("muerte2",true)
+                .on("animationcomplete", () => {this.scene.pause("game")})
+        }
+        //Vida
+            if(this.vidas === 0){
+                this.debeMoverse = false
+                this.personaje.setVelocityX(0)
+                this.personaje.play("muerte1",true)
+                .on("animationcomplete", () => {this.scene.pause("game")})
+        }
     }   
+
+    ataque(){
+
+
+        if(this.estaAtacando === true){
+            this.vidas2 = this.vidas2 - 1
+            console.log("atacando")
+            console.log(this.vidas2)
+        }
+
+        if(this.estaAtacando2 === true){
+            this.vidas = this.vidas - 1
+            console.log("atacando2")
+            console.log(this.vidas)
+        }
+
+    }
+
 }
