@@ -18,6 +18,36 @@ export default class preloader extends Phaser.Scene
 
     create()
     {
+        //animaciones
+
+        //personaje 1
+        this.anims.create({
+            key: 'idle',
+            frames: this.anims.generateFrameNumbers('personaje3', { start: 0, end: 3 }),
+            repeat: -1,
+            frameRate: 5
+        });
+        this.anims.create({
+            key: 'run',
+            frames: this.anims.generateFrameNumbers('personaje3', { start: 8, end: 13 }),
+            repeat: -1,
+            frameRate: 5
+        });
+        this.anims.create({
+            key: 'ataque1',
+            frames: this.anims.generateFrameNumbers('personaje3', { start: 49, end: 52 }),
+            repeat: 0,
+            frameRate: 10
+        });
+
+        //personaje 2
+        this.anims.create({
+            key: 'ataque2',
+            frames: this.anims.generateFrameNumbers('personaje3', { start: 49, end: 52 }),
+            repeat: 0,
+            frameRate: 10,
+        });
+    
         this.scene.start("game")
     }
 }
