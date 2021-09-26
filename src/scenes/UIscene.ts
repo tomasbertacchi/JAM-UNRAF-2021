@@ -7,6 +7,7 @@ export default class UIscene extends Phaser.Scene
 	public numeropuntuacion2!: Phaser.GameObjects.Text
 	private tuerca!: Phaser.GameObjects.Image
 	private player1!: Phaser.GameObjects.Text
+	private escenaJuego!: Phaser.Scene
 
 	constructor(scene: Scene)
 	{
@@ -17,7 +18,8 @@ export default class UIscene extends Phaser.Scene
 		this.tuerca = this.add.image(1850, 100, "tuerca")
 		.setInteractive()
 		.on('pointerdown', () =>{ this.scene.pause("game"); this.scene.run("pausa")});
-		
+	
+		var escenaJuego = this.scene.get('game');
 		this.textopuntuacion1 = this.add.text(100, 100, "Puntacion P1: ", {fontFamily: "Arial", fontSize: 48})
 		this.textopuntuacion2 = this.add.text(1200, 100, "Puntacion P2: ", {fontFamily: "Arial", fontSize: 48})
 		this.numeropuntuacion1 = this.add.text(500, 100, "0", {fontFamily: "Arial", fontSize: 48})
@@ -37,13 +39,15 @@ export default class UIscene extends Phaser.Scene
 		this.registry.events.on('changedata', (parent, key, data) => { 
 			if (key == 'vidas1'){
 				this.tuerca.destroy()
-				this.player1 = this.add.text(1920/2-200, 1080/2 -100, "GANO PLAYER 1")
+				this.player1 = this.add.text(1920/2-200, 1080/2 -100, "GANO PLAYER 2")
 				.setInteractive()
-				.on("pointerdown", ()=> this.scene.restart("game"));
+				.on("pointerdown", ()=> escenaJuego.scene.restart());
 			}
 			if (key == "vidas2"){
 				this.tuerca.destroy()
-				this.add.text(1920/2-200, 1080/2 -100, "GANO PLAYER 2")
+				this.add.text(1920/2-200, 1080/2 -100, "GANO PLAYER 1")
+				.setInteractive()
+				.on("pointerdown", ()=> escenaJuego.scene.restart());
 			}
 		});
     }
