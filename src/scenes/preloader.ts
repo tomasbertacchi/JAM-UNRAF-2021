@@ -59,7 +59,7 @@ export default class preloader extends Phaser.Scene
 
         this.anims.create({
             key: 'escudo',
-            frames: this.anims.generateFrameNumbers('personajedefiende', { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers('personajedefiende', { start: 2, end: 2 }),
             repeat: 0,
             frameRate: 10,
         });

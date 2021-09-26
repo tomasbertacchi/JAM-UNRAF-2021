@@ -26,6 +26,8 @@ export default class game extends Phaser.Scene
     private puntuacion1!: number
     private puntuacion2!: number
     private sumapunto!: boolean
+    private revive!: boolean
+    private revive2!: boolean
 
 	constructor()
 	{
@@ -33,8 +35,8 @@ export default class game extends Phaser.Scene
 	}
 
     create(){
-
-        this.scene.run("ui")
+        console.log("crea escena juego")
+        //this.scene.run("ui")
         this.estaAtacando = false
         this.debeMoverse = true
         this.seDefiende = false
@@ -44,6 +46,8 @@ export default class game extends Phaser.Scene
         this.estaMuerto = false
         this.estaMuerto2 = false
         this.sumapunto = true
+        this.revive = false
+        this.revive2 = false
         this.vidas= 1
         this.vidas2= 1
         this.puntuacion1 = 0

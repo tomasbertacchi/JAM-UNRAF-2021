@@ -14,6 +14,7 @@ export default class pausa extends Phaser.Scene{
         .setInteractive()
         .on("pointerdown", () => this.scene.resume("game"))
         .on("pointerdown", ()=> this.scene.stop("pausa"))
+        .on("pointerdown", ()=> this.scene.start("ui"))
         Phaser.Display.Align.CENTER
 
         

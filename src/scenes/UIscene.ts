@@ -7,6 +7,7 @@ export default class UIscene extends Phaser.Scene
 	public numeropuntuacion2!: Phaser.GameObjects.Text
 	private tuerca!: Phaser.GameObjects.Image
 	private player1!: Phaser.GameObjects.Text
+	private player2!: Phaser.GameObjects.Text
 	private escenaJuego!: Phaser.Scene
 	private score1!: any
 	private score2!: any
@@ -55,16 +56,27 @@ export default class UIscene extends Phaser.Scene
 		
 		this.registry.events.on('changedata', (parent, key, data) => { 
 			if (key == 'vidas1'){
-				this.tuerca.destroy()
+				this.tuerca.setVisible(false)
 				this.player1 = this.add.text(1920/2-200, 1080/2 -100, "GANO PLAYER 2")
 				.setInteractive()
-				.on("pointerdown", ()=> escenaJuego.scene.restart());
+				.on("pointerdown", ()=> {
+					escenaJuego.scene.start()
+					this.tuerca.setVisible(true)
+					this.player1.setX(2000)
+				});
 			}
 			if (key == "vidas2"){
-				this.tuerca.destroy()
-				this.add.text(1920/2-200, 1080/2 -100, "GANO PLAYER 1")
+				this.tuerca.setVisible(false)
+				this.player2 = this.add.text(1920/2-200, 1080/2 -100, "GANO PLAYER 1")
 				.setInteractive()
-				.on("pointerdown", ()=> escenaJuego.scene.restart());
+				.on("pointerdown", ()=> {
+					escenaJuego.scene.start(); 
+					this.tuerca.setVisible(true)
+					this.player2.setX(2000)
+				});
+				this.add.rectangle(1920/2-200, 1080/2 -100, 400, 400).setAlpha(0)
+				.setInteractive()
+				.on("pointerdown", ()=> this.player2.setVisible(false))
 			}
 		});
     }
