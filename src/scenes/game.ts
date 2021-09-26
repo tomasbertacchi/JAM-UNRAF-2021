@@ -69,8 +69,8 @@ export default class game extends Phaser.Scene
 
 
         //personajes
-        this.personaje = this.physics.add.sprite(200, 500, "personajeparado", 0);
-        this.personaje2 = this.physics.add.sprite(1700, 500, "personajeparado", 0);
+        this.personaje = this.physics.add.sprite(200, 750, "personajeparado", 0);
+        this.personaje2 = this.physics.add.sprite(1700, 750, "personajeparado", 0);
         this.personaje2.flipX = true;
         this.personaje.setSize(320,587)
         this.personaje2.setSize(320,587)

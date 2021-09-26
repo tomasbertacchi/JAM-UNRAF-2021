@@ -57,7 +57,7 @@ export default class UIscene extends Phaser.Scene
 		this.registry.events.on('changedata', (parent, key, data) => { 
 			if (key == 'vidas1'){
 				this.tuerca.setVisible(false)
-				this.player1 = this.add.text(1920/2-200, 1080/2 -100, "GANO PLAYER 2")
+				this.player1 = this.add.text(60, 250, "                 ", {fontSize: 750})
 				.setInteractive()
 				.on("pointerdown", ()=> {
 					escenaJuego.scene.start()
@@ -67,7 +67,7 @@ export default class UIscene extends Phaser.Scene
 			}
 			if (key == "vidas2"){
 				this.tuerca.setVisible(false)
-				this.player2 = this.add.text(1920/2-200, 1080/2 -100, "GANO PLAYER 1")
+				this.player2 = this.add.text(60, 250, "                 ", {fontSize: 750})
 				.setInteractive()
 				.on("pointerdown", ()=> {
 					escenaJuego.scene.start(); 
