@@ -16,11 +16,15 @@ export default class game extends Phaser.Scene
     private seDefiende2!: Boolean
     private debeMoverse2!: Boolean
     private estaAtacando2!: Boolean
+    private estaMuerto!: Boolean
+    private estaMuerto2!: Boolean
     private timer!: number
     private vidas!: number
     private vidas2!: number
     private timedEvent!: any
     private initialTime!: number
+    private puntuacion1!: number
+    private puntuacion2!: number
 
 	constructor()
 	{
@@ -36,8 +40,12 @@ export default class game extends Phaser.Scene
         this.estaAtacando2 = false
         this.debeMoverse2 = true
         this.seDefiende2 = false
+        this.estaMuerto = false
+        this.estaMuerto2 = false
         this.vidas= 1
         this.vidas2= 1
+        this.puntuacion1 = 0
+        this.puntuacion2 = 0
         this.cursores = this.input.keyboard.createCursorKeys()
         this.cursor_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.cursor_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -66,8 +74,9 @@ export default class game extends Phaser.Scene
         
         
         this.personaje.play("idle");
-
         this.personaje2.play("idle");
+        this.personaje.setCollideWorldBounds(true)
+        this.personaje2.setCollideWorldBounds(true)
     }
 
     update(){
@@ -118,6 +127,7 @@ export default class game extends Phaser.Scene
        if (this.cursores.right.isDown && this.debeMoverse2 == true){
             this.personaje2.setVelocityX(300)
             this.personaje2.setSize(320,587)
+           
        }//LEFT
        else if (this.cursores.left.isDown && this.debeMoverse2 == true){
            this.personaje2.setVelocityX(-300)
@@ -153,18 +163,26 @@ export default class game extends Phaser.Scene
 
 
         //Vida2
-            if(this.vidas2 === 0){
+            if(this.vidas2 <= 0){
                 this.debeMoverse2 = false
                 this.personaje2.setVelocityX(0)
                 this.personaje2.play("muerte",true)
                 this.timedEvent.paused = false;
+                this.estaMuerto2 = true
+                if (this.estaMuerto2 = true){
+                    this.personaje2.stop()
+                }
             }
         //Vida
-            if(this.vidas === 0){
+            if(this.vidas <= 0){
                 this.debeMoverse = false
                 this.personaje.setVelocityX(0)
                 this.personaje.play("muerte",true)
                 this.timedEvent.paused = false;
+                this.estaMuerto = true
+                if (this.estaMuerto = true){
+                    this.personaje2.stop()
+                }
                 
             }
     }   
@@ -174,12 +192,18 @@ export default class game extends Phaser.Scene
 
         if(this.estaAtacando === true && this.seDefiende2 === false){
             this.vidas2 = this.vidas2 - 1
+            this.registry.set("vidas2", this.vidas2)
+            this.puntuacion1 ++
+            this.registry.set("puntuacion1", this.puntuacion1)
             console.log("atacando")
             console.log(this.vidas2)
         }
 
         if(this.estaAtacando2 === true && this.seDefiende === false){
             this.vidas = this.vidas - 1
+            this.registry.set("vidas1", this.vidas)
+            this.puntuacion2 ++
+            this.registry.set("puntuacion2", this.puntuacion2)
             console.log("atacando2")
             console.log(this.vidas)
         }
@@ -189,13 +213,11 @@ export default class game extends Phaser.Scene
     defensa(){
 
         if(this.estaAtacando === true && this.seDefiende2 === true){
-            this.vidas2 = this.vidas2 + 1
             console.log("atacando")
             console.log(this.vidas2)
         }
 
         if(this.estaAtacando2 === true && this.seDefiende === true){
-            this.vidas = this.vidas + 1
             console.log("atacando2")
             console.log(this.vidas)
         }

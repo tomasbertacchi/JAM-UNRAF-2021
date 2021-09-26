@@ -15,6 +15,8 @@ export default class pausa extends Phaser.Scene{
         .on("pointerdown", () => this.scene.resume("game"))
         .on("pointerdown", ()=> this.scene.stop("pausa"))
         Phaser.Display.Align.CENTER
+
+        
     }
 }
 
