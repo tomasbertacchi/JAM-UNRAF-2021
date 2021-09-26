@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+    import Phaser from 'phaser'
 
 export default class game extends Phaser.Scene
 {
@@ -55,6 +55,7 @@ export default class game extends Phaser.Scene
         this.physics.add.collider(this.personaje2, this.plataformas);
         this.physics.add.collider(this.personaje, this.personaje2, ()=>{this.ataque()})
         this.physics.add.collider(this.personaje, this.personaje2, ()=>{this.defensa()})
+        this.physics.add.overlap(this.personaje, this.personaje2, ()=> {this.force()})
         
         
         this.personaje.play("idle");
@@ -65,7 +66,7 @@ export default class game extends Phaser.Scene
     update(){
         //CONTROLES PERSONAJE 1
         //RIGHT
-        if (this.cursor_D.isDown && this.debeMoverse == true){
+        if (this.cursor_D.isDown && this.debeMoverse == true ){
             this.personaje.setVelocityX(300)
             this.personaje.setSize(320,587)
             this.personaje.play("run", true)
@@ -116,7 +117,7 @@ export default class game extends Phaser.Scene
            this.personaje2.setSize(320,587)
            this.personaje2.play("run", true)
        } //IDLE
-       else if(this.debeMoverse2 == true){
+       else if(this.debeMoverse2 == true && this.vidas2 === 1){
         this.personaje2.setVelocityX(0)
         this.personaje2.setSize(320,587)
         this.personaje2.play("idle",true)
@@ -148,14 +149,14 @@ export default class game extends Phaser.Scene
             if(this.vidas2 === 0){
                 this.debeMoverse2 = false
                 this.personaje2.setVelocityX(0)
-                this.personaje2.play("muerte2",true)
+                this.personaje2.play("muerte",true)
                 .on("animationcomplete", () => {this.scene.pause("game")})
         }
         //Vida
             if(this.vidas === 0){
                 this.debeMoverse = false
                 this.personaje.setVelocityX(0)
-                this.personaje.play("muerte1",true)
+                this.personaje.play("muerte",true)
                 .on("animationcomplete", () => {this.scene.pause("game")})
         }
     }   
@@ -191,5 +192,10 @@ export default class game extends Phaser.Scene
             console.log(this.vidas)
         }
     }
-
+    force(){
+        if(this.vidas === 1 && this.vidas2 === 1){
+            this.personaje.body.position.set(this.personaje.body.position.x-15,this.personaje.body.position.y)
+            this.personaje2.body.position.set(this.personaje2.body.position.x+15,this.personaje2.body.position.y)
+        }
+    }
 }
