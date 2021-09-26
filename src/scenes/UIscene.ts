@@ -8,6 +8,8 @@ export default class UIscene extends Phaser.Scene
 	private tuerca!: Phaser.GameObjects.Image
 	private player1!: Phaser.GameObjects.Text
 	private escenaJuego!: Phaser.Scene
+	private score1!: any
+	private score2!: any
 
 	constructor(scene: Scene)
 	{
@@ -15,6 +17,18 @@ export default class UIscene extends Phaser.Scene
 	}
 
     create(){
+		if(this.score1 == undefined ){
+			this.score1 = 0
+		}
+		if(this.score2 == undefined){
+			this.score2 = 0
+		}
+		if (this.score1 != undefined || this.score2 != undefined){
+			this.score1 = this.score1
+			this.score2 = this.score2
+		}
+		
+
 		this.tuerca = this.add.image(1850, 100, "tuerca")
 		.setInteractive()
 		.on('pointerdown', () =>{ this.scene.pause("game"); this.scene.run("pausa")});
@@ -22,17 +36,20 @@ export default class UIscene extends Phaser.Scene
 		var escenaJuego = this.scene.get('game');
 		this.textopuntuacion1 = this.add.text(100, 100, "Puntacion P1: ", {fontFamily: "Arial", fontSize: 48})
 		this.textopuntuacion2 = this.add.text(1200, 100, "Puntacion P2: ", {fontFamily: "Arial", fontSize: 48})
-		this.numeropuntuacion1 = this.add.text(500, 100, "0", {fontFamily: "Arial", fontSize: 48})
-		this.numeropuntuacion2 = this.add.text(1700, 100, "0", {fontFamily: "Arial", fontSize: 48})
+		this.numeropuntuacion1 = this.add.text(500, 100, ""+this.score1, {fontFamily: "Arial", fontSize: 48})
+		this.numeropuntuacion2 = this.add.text(1700, 100,""+this.score2, {fontFamily: "Arial", fontSize: 48})
 		
 		//this.registry.events.on("changedata", this.updatePuntos, this)
 		
 		this.registry.events.on('changedata', (parent, key, data) => { 
 			if (key == 'puntuacion1'){
-				this.numeropuntuacion1.setText(data)
+				this.score1 = this.score1+data
+				console.log(data)
+				this.numeropuntuacion1.setText(this.score1)
             }
             if (key == "puntuacion2"){
-				this.numeropuntuacion2.setText(data)
+				this.score2 = this.score2+data
+				this.numeropuntuacion2.setText(this.score2)
             }
         });
 		

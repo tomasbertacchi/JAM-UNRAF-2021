@@ -48,6 +48,8 @@ export default class game extends Phaser.Scene
         this.vidas2= 1
         this.puntuacion1 = 0
         this.puntuacion2 = 0
+        this.registry.set("puntuacion2", this.puntuacion2)
+        this.registry.set("puntuacion1", this.puntuacion1)
         this.cursores = this.input.keyboard.createCursorKeys()
         this.cursor_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.cursor_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
@@ -192,14 +194,14 @@ export default class game extends Phaser.Scene
             this.registry.set("vidas2", this.vidas2)
             
            
-            console.log("atacando")
-            console.log(this.vidas2)
+            // console.log("atacando")
+            // console.log(this.vidas2)
             if (this.debeMoverse2 == true){
                 this.estaMuerto2 = true
                 this.vidas2 = this.vidas2 - 1
                 this.registry.set("vidas2", this.vidas2)
-                console.log("atacando")
-                console.log(this.vidas2)
+                // console.log("atacando")
+                // console.log(this.vidas2)
             }
         }
 
@@ -209,40 +211,40 @@ export default class game extends Phaser.Scene
             this.registry.set("vidas1", this.vidas)
             
             
-            console.log("atacando2")
-            console.log(this.vidas)
+            // console.log("atacando2")
+            // console.log(this.vidas)
             if (this.debeMoverse == true){
                 this.estaMuerto = true
                 this.vidas = this.vidas - 1
                 this.registry.set("vidas1", this.vidas)
                 
                 
-                console.log("atacando2")
-                console.log(this.vidas)
+                // console.log("atacando2")
+                // console.log(this.vidas)
             }
         }
 
         if(this.estaMuerto && this.sumapunto){
-            this.puntuacion2 = this.puntuacion2 + 1
+            this.puntuacion2 = 1
             this.registry.set("puntuacion2", this.puntuacion2)
             this.sumapunto = false       
-            console.log("Sumapuntos2" + this.puntuacion2)
+            // console.log("Sumapuntos2" + this.puntuacion2)
             if (this.debeMoverse2 == true){
-                this.puntuacion2 = this.puntuacion2 + 1
+                this.puntuacion2 = 1
                 this.registry.set("puntuacion2", this.puntuacion2)
                 this.sumapunto = false       
-                console.log("Sumapuntos2" + this.puntuacion2)
+                // console.log("Sumapuntos2" + this.puntuacion2)
             }
         }
         if(this.estaMuerto2 && this.sumapunto){
-            this.puntuacion1 = this.puntuacion1 +1
+            this.puntuacion1 = 1
             this.registry.set("puntuacion1", this.puntuacion1)
             this.sumapunto = false 
-            console.log("Sumapuntos" + this.puntuacion1)   
+            // console.log("Sumapuntos" + this.puntuacion1)   
             if (this.debeMoverse == true){
-                this.puntuacion1 = this.puntuacion1 +1
+                this.puntuacion1 = 1
                 this.registry.set("puntuacion1", this.puntuacion1)
-                this.sumapunto = false 
+                    this.sumapunto = false 
             }        
         }
 
@@ -251,13 +253,13 @@ export default class game extends Phaser.Scene
     defensa(){
 
         if(this.estaAtacando === true && this.seDefiende2 === true){
-            console.log("atacando")
-            console.log(this.vidas2)
+            // console.log("atacando")
+            // console.log(this.vidas2)
         }
 
         if(this.estaAtacando2 === true && this.seDefiende === true){
-            console.log("atacando2")
-            console.log(this.vidas)
+            // console.log("atacando2")
+            // console.log(this.vidas)
         }
     }
     force(){
