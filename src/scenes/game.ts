@@ -25,6 +25,7 @@ export default class game extends Phaser.Scene
     private initialTime!: number
     private puntuacion1!: number
     private puntuacion2!: number
+    private sumapunto!: boolean
 
 	constructor()
 	{
@@ -42,6 +43,7 @@ export default class game extends Phaser.Scene
         this.seDefiende2 = false
         this.estaMuerto = false
         this.estaMuerto2 = false
+        this.sumapunto = true
         this.vidas= 1
         this.vidas2= 1
         this.puntuacion1 = 0
@@ -168,6 +170,7 @@ export default class game extends Phaser.Scene
                 this.personaje2.setVelocityX(0)
                 this.personaje2.play("muerte",true)
                 this.timedEvent.paused = false;
+                
             }
         //Vida
             if(this.vidas <= 0){
@@ -175,44 +178,72 @@ export default class game extends Phaser.Scene
                 this.personaje.setVelocityX(0)
                 this.personaje.play("muerte",true)
                 this.timedEvent.paused = false;
+                
             }
+
     }   
 
     ataque(){
 
 
         if(this.estaAtacando === true && this.seDefiende2 === false){
+            this.estaMuerto2 = true
             this.vidas2 = this.vidas2 - 1
             this.registry.set("vidas2", this.vidas2)
-            this.puntuacion1 ++
-            this.registry.set("puntuacion1", this.puntuacion1)
+            
+           
             console.log("atacando")
             console.log(this.vidas2)
             if (this.debeMoverse2 == true){
+                this.estaMuerto2 = true
                 this.vidas2 = this.vidas2 - 1
                 this.registry.set("vidas2", this.vidas2)
-                this.puntuacion1 ++
-                this.registry.set("puntuacion1", this.puntuacion1)
                 console.log("atacando")
                 console.log(this.vidas2)
             }
         }
 
         if(this.estaAtacando2 === true && this.seDefiende === false){
+            this.estaMuerto = true
             this.vidas = this.vidas - 1
             this.registry.set("vidas1", this.vidas)
-            this.puntuacion2 ++
-            this.registry.set("puntuacion2", this.puntuacion2)
+            
+            
             console.log("atacando2")
             console.log(this.vidas)
             if (this.debeMoverse == true){
+                this.estaMuerto = true
                 this.vidas = this.vidas - 1
                 this.registry.set("vidas1", this.vidas)
-                this.puntuacion2 ++
-                this.registry.set("puntuacion2", this.puntuacion2)
+                
+                
                 console.log("atacando2")
                 console.log(this.vidas)
             }
+        }
+
+        if(this.estaMuerto && this.sumapunto){
+            this.puntuacion2 = this.puntuacion2 + 1
+            this.registry.set("puntuacion2", this.puntuacion2)
+            this.sumapunto = false       
+            console.log("Sumapuntos2" + this.puntuacion2)
+            if (this.debeMoverse2 == true){
+                this.puntuacion2 = this.puntuacion2 + 1
+                this.registry.set("puntuacion2", this.puntuacion2)
+                this.sumapunto = false       
+                console.log("Sumapuntos2" + this.puntuacion2)
+            }
+        }
+        if(this.estaMuerto2 && this.sumapunto){
+            this.puntuacion1 = this.puntuacion1 +1
+            this.registry.set("puntuacion1", this.puntuacion1)
+            this.sumapunto = false 
+            console.log("Sumapuntos" + this.puntuacion1)   
+            if (this.debeMoverse == true){
+                this.puntuacion1 = this.puntuacion1 +1
+                this.registry.set("puntuacion1", this.puntuacion1)
+                this.sumapunto = false 
+            }        
         }
 
     }
