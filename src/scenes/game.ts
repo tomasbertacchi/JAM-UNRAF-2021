@@ -19,6 +19,8 @@ export default class game extends Phaser.Scene
     private timer!: number
     private vidas!: number
     private vidas2!: number
+    private timedEvent!: any
+    private initialTime!: number
 
 	constructor()
 	{
@@ -26,6 +28,7 @@ export default class game extends Phaser.Scene
 	}
 
     create(){
+
         this.scene.run("ui")
         this.estaAtacando = false
         this.debeMoverse = true
@@ -40,6 +43,10 @@ export default class game extends Phaser.Scene
         this.cursor_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.cursor_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.cursor_SHIFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+
+        //Timer
+        this.timedEvent = this.time.addEvent({ delay: 500, callback: this.onSecond, callbackScope: this, loop: false });
+        this.timedEvent.paused = true;
         //plataformas
         this.plataformas = this.physics.add.staticGroup();
         this.plataformas.create(960, 1060, 'plataforma') 
@@ -117,7 +124,7 @@ export default class game extends Phaser.Scene
            this.personaje2.setSize(320,587)
            this.personaje2.play("run", true)
        } //IDLE
-       else if(this.debeMoverse2 == true && this.vidas2 === 1){
+       else if(this.debeMoverse2 == true){
         this.personaje2.setVelocityX(0)
         this.personaje2.setSize(320,587)
         this.personaje2.play("idle",true)
@@ -150,15 +157,16 @@ export default class game extends Phaser.Scene
                 this.debeMoverse2 = false
                 this.personaje2.setVelocityX(0)
                 this.personaje2.play("muerte",true)
-                .on("animationcomplete", () => {this.scene.pause("game")})
-        }
+                this.timedEvent.paused = false;
+            }
         //Vida
             if(this.vidas === 0){
                 this.debeMoverse = false
                 this.personaje.setVelocityX(0)
                 this.personaje.play("muerte",true)
-                .on("animationcomplete", () => {this.scene.pause("game")})
-        }
+                this.timedEvent.paused = false;
+                
+            }
     }   
 
     ataque(){
@@ -197,5 +205,8 @@ export default class game extends Phaser.Scene
             this.personaje.body.position.set(this.personaje.body.position.x-15,this.personaje.body.position.y)
             this.personaje2.body.position.set(this.personaje2.body.position.x+15,this.personaje2.body.position.y)
         }
+    }
+    onSecond(){
+        this.scene.pause("game")
     }
 }
