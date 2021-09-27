@@ -28,6 +28,7 @@ export default class game extends Phaser.Scene
     private sumapunto!: boolean
     private revive!: boolean
     private revive2!: boolean
+    
 
 	constructor()
 	{
@@ -35,7 +36,7 @@ export default class game extends Phaser.Scene
 	}
 
     create(){
-        console.log("crea escena juego")
+       // console.log("crea escena juego")
         //this.scene.run("ui")
         this.estaAtacando = false
         this.debeMoverse = true
@@ -60,12 +61,14 @@ export default class game extends Phaser.Scene
         this.cursor_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.cursor_SHIFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 
+        
+
         //Timer
         this.timedEvent = this.time.addEvent({ delay: 500, callback: this.onSecond, callbackScope: this, loop: false });
         this.timedEvent.paused = true;
         //plataformas
         this.plataformas = this.physics.add.staticGroup();
-        this.plataformas.create(960, 1060, 'plataforma') 
+        this.plataformas.create(960, 1060, 'plataforma').setAlpha(0) 
 
 
         //personajes

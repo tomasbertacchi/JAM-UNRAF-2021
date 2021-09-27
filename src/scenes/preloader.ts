@@ -16,6 +16,8 @@ export default class preloader extends Phaser.Scene
         this.load.spritesheet("personajedefiende", "assets/personaje/Fitz_Defensa.png", { frameWidth: 381, frameHeight: 587, endFrame:3 })
         this.load.spritesheet("personajemuere", "assets/personaje/Fitz_Muere.png", { frameWidth: 381, frameHeight: 587, /*endFrame:3*/ })
         this.load.image("tuerca", "images/tuerca.png")
+        this.load.image("bg1", "assets/escenario/BG1.png")
+        this.load.image("bg2", "assets/escenario/BG2.png")
     }
 
     create()

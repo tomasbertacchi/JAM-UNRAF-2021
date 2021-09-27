@@ -11,6 +11,8 @@ export default class UIscene extends Phaser.Scene
 	private escenaJuego!: Phaser.Scene
 	private score1!: any
 	private score2!: any
+	private randomNumber!: number
+    private bg!: Phaser.GameObjects.Image
 
 	constructor(scene: Scene)
 	{
@@ -18,6 +20,10 @@ export default class UIscene extends Phaser.Scene
 	}
 
     create(){
+		//Random BG
+        this.randomNumber = Phaser.Math.RoundTo(Phaser.Math.FloatBetween(1,2));
+        this.bg = this.add.image(0,0, "bg"+this.randomNumber).setOrigin(0,0)
+
 		if(this.score1 == undefined ){
 			this.score1 = 0
 		}
@@ -45,7 +51,7 @@ export default class UIscene extends Phaser.Scene
 		this.registry.events.on('changedata', (parent, key, data) => { 
 			if (key == 'puntuacion1'){
 				this.score1 = this.score1+data
-				console.log(data)
+				//console.log(data)
 				this.numeropuntuacion1.setText(this.score1)
             }
             if (key == "puntuacion2"){
@@ -63,6 +69,7 @@ export default class UIscene extends Phaser.Scene
 					escenaJuego.scene.start()
 					this.tuerca.setVisible(true)
 					this.player1.setX(2000)
+					
 				});
 			}
 			if (key == "vidas2"){
@@ -73,6 +80,7 @@ export default class UIscene extends Phaser.Scene
 					escenaJuego.scene.start(); 
 					this.tuerca.setVisible(true)
 					this.player2.setX(2000)
+					
 				});
 				this.add.rectangle(1920/2-200, 1080/2 -100, 400, 400).setAlpha(0)
 				.setInteractive()
