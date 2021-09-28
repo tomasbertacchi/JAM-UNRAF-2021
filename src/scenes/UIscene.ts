@@ -68,7 +68,7 @@ export default class UIscene extends Phaser.Scene
 				this.score1 = this.score1+data
 				console.log(data)
 				this.numeropuntuacion1.setText(this.score1)
-				if (this.score1 == 5){
+				if (this.score1 == 3){
 					this.timedEvent.paused = false;
 					//this.scene.start("gameover");this.scene.stop("ui");this.scene.stop("game")
 					this.score1=0
@@ -80,7 +80,7 @@ export default class UIscene extends Phaser.Scene
 				this.score2 = this.score2+data
 				console.log(data)
 				this.numeropuntuacion2.setText(this.score2)
-				if (this.score2 == 5){
+				if (this.score2 == 3){
 					this.timedEvent2.paused = false;
 					//this.scene.start("gameover");this.scene.stop("ui");this.scene.stop("game")
 					this.score1=0

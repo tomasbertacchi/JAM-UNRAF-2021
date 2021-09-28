@@ -15,7 +15,7 @@ export default class gameover    extends Phaser.Scene{
         this.ganador1 = this.add.image(0,0, "ganador1").setOrigin(0,0)
         this.volver = this.add.image(1920/2-600, 1080/2 +300, "atras")
         .setInteractive() 
-        .on("pointerdown", () => {this.scene.start("menu");this.scene.stop("gameover")})
+        .on("pointerdown", () => {/*this.scene.start("menu");this.scene.stop("gameover")*/window.location.reload(); })
     
     }
 }
