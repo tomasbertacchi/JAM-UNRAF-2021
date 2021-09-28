@@ -60,7 +60,7 @@ export default class game extends Phaser.Scene
         this.cursor_A = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
         this.cursor_D = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
         this.cursor_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
-        this.cursor_SHIFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+        this.cursor_SHIFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ALT);
 
         this.randomNumber1 = Phaser.Math.RoundTo(Phaser.Math.FloatBetween(1,4));
         this.randomNumber2 = Phaser.Math.RoundTo(Phaser.Math.FloatBetween(1,4));
