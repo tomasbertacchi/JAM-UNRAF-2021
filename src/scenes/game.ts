@@ -28,7 +28,8 @@ export default class game extends Phaser.Scene
     private sumapunto!: boolean
     private revive!: boolean
     private revive2!: boolean
-    
+    private randomNumber1!: number
+    private randomNumber2!: number
 
 	constructor()
 	{
@@ -61,6 +62,9 @@ export default class game extends Phaser.Scene
         this.cursor_S = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.S);
         this.cursor_SHIFT = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
 
+        this.randomNumber1 = Phaser.Math.RoundTo(Phaser.Math.FloatBetween(1,4));
+        this.randomNumber2 = Phaser.Math.RoundTo(Phaser.Math.FloatBetween(1,4));
+
         
 
         //Timer
@@ -72,11 +76,31 @@ export default class game extends Phaser.Scene
 
 
         //personajes
-        this.personaje = this.physics.add.sprite(200, 750, "personajeparado", 0);
-        this.personaje2 = this.physics.add.sprite(1700, 750, "personajeparado", 0);
+        this.personaje = this.physics.add.sprite(200, 750, "personajeparado"+this.randomNumber1, 0);
+        this.personaje2 = this.physics.add.sprite(1700, 750, "personajeparado"+this.randomNumber2, 0);
         this.personaje2.flipX = true;
+        if(this.randomNumber1 == 1){
         this.personaje.setSize(320,587)
-        this.personaje2.setSize(320,587)
+        }else if(this.randomNumber1 == 2){
+            this.personaje.setSize(300,587)
+        }else if(this.randomNumber1 == 3){
+            this.personaje.setSize(400,587)
+            this.personaje.setOffset(0,0)
+        }else if(this.randomNumber1 == 4){
+            this.personaje.setSize(400,587)
+            this.personaje.setOffset(0,0)
+        }
+        if(this.randomNumber2 == 1){
+            this.personaje2.setSize(320,587)
+        }else if(this.randomNumber2 == 2){
+            this.personaje2.setSize(300,587)
+        }else if(this.randomNumber2 == 3){
+            this.personaje2.setSize(400,587)
+            this.personaje2.setOffset(300,0)
+        }else if(this.randomNumber2 == 4){
+            this.personaje2.setSize(400,587)
+            this.personaje2.setOffset(300,0)
+        }
         this.physics.add.collider(this.personaje, this.plataformas);
         this.physics.add.collider(this.personaje2, this.plataformas);
         this.physics.add.collider(this.personaje, this.personaje2, ()=>{this.ataque()})
@@ -84,8 +108,8 @@ export default class game extends Phaser.Scene
         this.physics.add.overlap(this.personaje, this.personaje2, ()=> {this.force()})
         
         
-        this.personaje.play("idle");
-        this.personaje2.play("idle");
+        this.personaje.play("idle"+this.randomNumber1);
+        this.personaje2.play("idle"+this.randomNumber2);
         this.personaje.setCollideWorldBounds(true)
         this.personaje2.setCollideWorldBounds(true)
     }
@@ -95,17 +119,47 @@ export default class game extends Phaser.Scene
         //RIGHT
         if (this.cursor_D.isDown && this.debeMoverse == true ){
             this.personaje.setVelocityX(300)
-            this.personaje.setSize(320,587)
-            this.personaje.play("run", true)
+            if(this.randomNumber1 == 1){
+                this.personaje.setSize(320,587)
+            }else if(this.randomNumber1 == 2){
+                this.personaje.setSize(270,587)
+            }else if(this.randomNumber1 == 3){
+                this.personaje.setSize(400,587)
+                this.personaje.setOffset(-15,0)
+            }else if(this.randomNumber1 == 4){
+                this.personaje.setSize(400,587)
+                this.personaje.setOffset(-15,0)
+            }
+            this.personaje.play("run"+this.randomNumber1, true)
         } //LEFT
         else if (this.cursor_A.isDown && this.debeMoverse == true){
             this.personaje.setVelocityX(-300)
-            this.personaje.setSize(320,587)
+            if(this.randomNumber1 == 1){
+                this.personaje.setSize(320,587)
+            }else if(this.randomNumber1 == 2){
+                this.personaje.setSize(270,587)
+            }else if(this.randomNumber1 == 3){
+                this.personaje.setSize(400,587)
+                this.personaje.setOffset(-15,0)
+            }else if(this.randomNumber1 == 4){
+                this.personaje.setSize(400,587)
+                this.personaje.setOffset(-15,0)
+            }
         } //IDLE
         else if(this.debeMoverse == true){
             this.personaje.setVelocityX(0)
-            this.personaje.setSize(320,587)
-            this.personaje.play("idle",true)
+            if(this.randomNumber1 == 1){
+                this.personaje.setSize(320,587)
+            }else if(this.randomNumber1 == 2){
+                this.personaje.setSize(270,587)
+            }else if(this.randomNumber1 == 3){
+                this.personaje.setSize(400,587)
+                this.personaje.setOffset(0,0)
+            }else if(this.randomNumber1 == 4){
+                this.personaje.setSize(400,587)
+                this.personaje.setOffset(0,0)
+            }
+            this.personaje.play("idle"+this.randomNumber1,true)
         }
         
         //ATAQUE
@@ -114,9 +168,20 @@ export default class game extends Phaser.Scene
             this.estaAtacando = true
             this.personaje.setVelocityX(0)
             if(this. estaAtacando == true){
-                this.personaje.setSize(330,587)
-                this.personaje.play("ataque1")
-                .on("animationcomplete", () => {this.personaje.play("idle",true); this.debeMoverse = true; this.estaAtacando = false; this.personaje.setSize(320,587)})
+                if(this.randomNumber1 == 1){
+                    this.personaje.setSize(380,587)
+                }else if(this.randomNumber1 == 2){
+                    this.personaje.setSize(400,587)
+                    this.personaje.setOffset(170,0)
+                }else if(this.randomNumber1 == 3){
+                    this.personaje.setSize(500,587)
+                    this.personaje.setOffset(31,0)
+                }else if(this.randomNumber1 == 4){
+                    this.personaje.setSize(500,587)
+                    this.personaje.setOffset(31,0)
+                }
+                this.personaje.play("ataque"+this.randomNumber1)
+                .on("animationcomplete", () => {this.personaje.play("idle"+this.randomNumber1,true); this.debeMoverse = true; this.estaAtacando = false; if(this.randomNumber1==1){this.personaje.setSize(320,587)}else if(this.randomNumber1 ==2){this.personaje.setSize(270,587)}else if(this.randomNumber1 ==3){this.personaje.setSize(400,587);this.personaje.setOffset(0,0)}else if(this.randomNumber1 ==4){this.personaje.setSize(400,587);this.personaje.setOffset(0,0)}})
                 
             } 
             
@@ -126,29 +191,82 @@ export default class game extends Phaser.Scene
             this.debeMoverse = false
             this.seDefiende = true
             this.personaje.setVelocityX(0)
+            if(this.randomNumber1 == 1){
+                this.personaje.setSize(380,587)
+            }else if(this.randomNumber1 == 2){
+                this.personaje.setSize(330,587)
+            }else if(this.randomNumber1 == 4){
+                this.personaje.setSize(400,587)
+                this.personaje.setOffset(31,0)
+            }
             if(this. seDefiende == true){
-                this.personaje.play("escudo")
-                .on("animationcomplete", () => {this.personaje.play("idle",true); this.debeMoverse = true; this.seDefiende = false; this.personaje.setSize(320,587)})   
+                this.personaje.play("escudo"+this.randomNumber1)
+                   
             } 
 
+        }
+        if(Phaser.Input.Keyboard.JustUp(this.cursor_S)){
+            this.personaje.play("idle"+this.randomNumber1,true);
+            this.debeMoverse = true; this.seDefiende = false;
+            if(this.randomNumber1==1){
+                this.personaje.setSize(320,587)
+            }else if(this.randomNumber1 ==2){
+                this.personaje.setSize(270,587)
+            }else if(this.randomNumber1 ==3){
+                this.personaje.setSize(400,587);
+                this.personaje.setOffset(0,0)
+            }else if(this.randomNumber1 == 4){
+                this.personaje.setSize(500,587)
+                this.personaje.setOffset(31,0)
+            }
         }
         
         //CONTROLES PERSONAJE 2
         //RIGHT
        if (this.cursores.right.isDown && this.debeMoverse2 == true){
             this.personaje2.setVelocityX(300)
-            this.personaje2.setSize(320,587)
+            if(this.randomNumber2 == 1){
+                this.personaje2.setSize(320,587)
+            }else if(this.randomNumber2 == 2){
+                this.personaje.setSize(270,587)
+            }else if(this.randomNumber2 == 3){
+                this.personaje2.setSize(400,587)
+                this.personaje2.setOffset(330,0)
+            }else if(this.randomNumber2 == 4){
+                this.personaje2.setSize(400,587)
+                this.personaje2.setOffset(380,0)
+            }
            
        }//LEFT
        else if (this.cursores.left.isDown && this.debeMoverse2 == true){
            this.personaje2.setVelocityX(-300)
-           this.personaje2.setSize(320,587)
-           this.personaje2.play("run", true)
+           if(this.randomNumber2 == 1){
+                this.personaje2.setSize(320,587)
+            }else if(this.randomNumber2 == 2){
+                this.personaje2.setSize(270,587)
+            }else if(this.randomNumber2 == 3){
+                this.personaje2.setSize(400,587)
+                this.personaje2.setOffset(330,0)
+            }else if(this.randomNumber2 == 4){
+                this.personaje2.setSize(400,587)
+                this.personaje2.setOffset(380,0)
+            }
+           this.personaje2.play("run"+this.randomNumber2, true)
        } //IDLE
        else if(this.debeMoverse2 == true){
         this.personaje2.setVelocityX(0)
-        this.personaje2.setSize(320,587)
-        this.personaje2.play("idle",true)
+        if(this.randomNumber2 == 1){
+            this.personaje2.setSize(320,587)
+        }else if(this.randomNumber2 == 2){
+            this.personaje2.setSize(270,587)
+        }else if(this.randomNumber2 == 3){
+            this.personaje2.setSize(400,587)
+            this.personaje2.setOffset(330,0)
+        }else if(this.randomNumber2 == 4){
+            this.personaje2.setSize(400,587)
+            this.personaje2.setOffset(330,0)
+        }
+        this.personaje2.play("idle"+this.randomNumber2,true)
     }
         // ATAQUE
        if(Phaser.Input.Keyboard.JustDown(this.cursor_SHIFT) && this.estaAtacando2 == false && this.seDefiende2 == false){
@@ -156,9 +274,20 @@ export default class game extends Phaser.Scene
             this.estaAtacando2 = true
             this.personaje2.setVelocityX(0)
             if(this.estaAtacando2 == true){
-                this.personaje2.setSize(330,587)
-                this.personaje2.play("ataque2")
-                .on("animationcomplete", () => {this.personaje2.play("idle",true); this.debeMoverse2 = true; this.estaAtacando2 = false; this.personaje2.setSize(320,587)})
+                if(this.randomNumber2 == 1){
+                    this.personaje2.setSize(380,587)
+                }else if(this.randomNumber2 == 2){
+                    this.personaje2.setSize(400,587)
+                    this.personaje2.setOffset(170,0)
+                }else if(this.randomNumber2 == 3){
+                    this.personaje2.setSize(500,587)
+                    this.personaje2.setOffset(235,0)
+                }else if(this.randomNumber2 == 4){
+                    this.personaje2.setSize(500,587)
+                    this.personaje2.setOffset(235,0)
+                }
+                this.personaje2.play("ataque"+this.randomNumber2)
+                .on("animationcomplete", () => {this.personaje2.play("idle"+this.randomNumber2,true); this.debeMoverse2 = true; this.estaAtacando2 = false; if(this.randomNumber2==1){this.personaje2.setSize(320,587)}else if(this.randomNumber2 ==2){this.personaje2.setSize(270,587)}else if(this.randomNumber2 ==3){this.personaje2.setSize(400,587);this.personaje2.setOffset(330,0)}else if(this.randomNumber2 ==4){this.personaje2.setSize(400,587);this.personaje2.setOffset(330,0)}})
             } 
        }
 
@@ -166,18 +295,47 @@ export default class game extends Phaser.Scene
         this.debeMoverse2 = false
         this.seDefiende2 = true
         this.personaje2.setVelocityX(0)
-        if(this. seDefiende2 == true){
-            this.personaje2.play("escudo")
-            .on("animationcomplete", () => {this.personaje2.play("idle",true); this.debeMoverse2 = true; this.seDefiende2 = false; this.personaje2.setSize(320,587)})   
+        if(this.randomNumber2 == 1){
+            this.personaje2.setSize(380,587)
+        }else if(this.randomNumber2 == 2){
+            this.personaje2.setSize(330,587)
+        }else if(this.randomNumber2 == 3){
+            this.personaje2.setSize(330,0)
+            this.personaje2.setOffset(380,0)
+
+        }else if(this.randomNumber2 == 4){
+            this.personaje2.setSize(530,0)
+            this.personaje2.setOffset(340,0)
+
         }
-    } 
+        if(this. seDefiende2 == true){
+            this.personaje2.play("escudo"+this.randomNumber2)
+            
+        }
+        } 
+        if(Phaser.Input.Keyboard.JustUp(this.cursores.down)){
+            this.personaje2.play("idle"+this.randomNumber2,true); 
+            this.debeMoverse2 = true; 
+            this.seDefiende2 = false; 
+            if(this.randomNumber2==1){
+                this.personaje2.setSize(320,587)
+            }else if(this.randomNumber2 ==2){
+                this.personaje2.setSize(270,587)
+            }else if(this.randomNumber2 ==3){
+                this.personaje2.setSize(400,587);
+                this.personaje2.setOffset(330,0)
+            }else if(this.randomNumber2 ==4){
+                this.personaje2.setSize(400,587);
+                this.personaje2.setOffset(330,0)
+            }
+        }
 
 
         //Vida2
             if(this.vidas2 <= 0){
                 this.debeMoverse2 = false
                 this.personaje2.setVelocityX(0)
-                this.personaje2.play("muerte",true)
+                this.personaje2.play("muerte"+this.randomNumber2,true)
                 this.timedEvent.paused = false;
                 
             }
@@ -185,7 +343,7 @@ export default class game extends Phaser.Scene
             if(this.vidas <= 0){
                 this.debeMoverse = false
                 this.personaje.setVelocityX(0)
-                this.personaje.play("muerte",true)
+                this.personaje.play("muerte"+this.randomNumber1,true)
                 this.timedEvent.paused = false;
                 
             }
