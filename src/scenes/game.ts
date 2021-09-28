@@ -163,7 +163,7 @@ export default class game extends Phaser.Scene
         }
         
         //ATAQUE
-        if(Phaser.Input.Keyboard.JustDown(this.cursores.space) && this.estaAtacando == false && this.seDefiende == false){
+        if(Phaser.Input.Keyboard.JustDown(this.cursores.space) && this.estaAtacando == false && this.seDefiende == false && !this.cursor_S.isDown){
             this.debeMoverse = false
             this.estaAtacando = true
             this.personaje.setVelocityX(0)
@@ -187,7 +187,7 @@ export default class game extends Phaser.Scene
             
         }
 
-        if(this.cursor_S.isDown && this.seDefiende == false && this.estaAtacando == false){
+        if(this.cursor_S.isDown && this.seDefiende == false && this.estaAtacando == false && !this.cursores.space.isDown){
             this.debeMoverse = false
             this.seDefiende = true
             this.personaje.setVelocityX(0)
@@ -201,13 +201,16 @@ export default class game extends Phaser.Scene
             }
             if(this. seDefiende == true){
                 this.personaje.play("escudo"+this.randomNumber1)
-                   
+                this.debeMoverse = true
+                this.seDefiende = false 
+                //.on('animationcomplete', () => {this.debeMoverse = true; this.seDefiende = false; console.log("complete")})
+                
             } 
 
         }
         if(Phaser.Input.Keyboard.JustUp(this.cursor_S)){
             this.personaje.play("idle"+this.randomNumber1,true);
-            this.debeMoverse = true; this.seDefiende = false;
+            
             if(this.randomNumber1==1){
                 this.personaje.setSize(320,587)
             }else if(this.randomNumber1 ==2){
@@ -269,7 +272,7 @@ export default class game extends Phaser.Scene
         this.personaje2.play("idle"+this.randomNumber2,true)
     }
         // ATAQUE
-       if(Phaser.Input.Keyboard.JustDown(this.cursor_SHIFT) && this.estaAtacando2 == false && this.seDefiende2 == false){
+       if(Phaser.Input.Keyboard.JustDown(this.cursor_SHIFT) && this.estaAtacando2 == false && this.seDefiende2 == false && !this.cursores.down.isDown){
             this.debeMoverse2 = false
             this.estaAtacando2 = true
             this.personaje2.setVelocityX(0)
@@ -291,7 +294,7 @@ export default class game extends Phaser.Scene
             } 
        }
 
-       if(this.cursores.down.isDown && this.seDefiende2 == false && this.estaAtacando2 == false){
+       if(this.cursores.down.isDown && this.seDefiende2 == false && this.estaAtacando2 == false && !this.cursor_SHIFT.isDown){
         this.debeMoverse2 = false
         this.seDefiende2 = true
         this.personaje2.setVelocityX(0)
@@ -310,13 +313,14 @@ export default class game extends Phaser.Scene
         }
         if(this. seDefiende2 == true){
             this.personaje2.play("escudo"+this.randomNumber2)
-            
+            this.debeMoverse2 = true
+            this.seDefiende2 = false 
         }
         } 
         if(Phaser.Input.Keyboard.JustUp(this.cursores.down)){
             this.personaje2.play("idle"+this.randomNumber2,true); 
-            this.debeMoverse2 = true; 
-            this.seDefiende2 = false; 
+            // this.debeMoverse2 = true
+            // this.seDefiende2 = false 
             if(this.randomNumber2==1){
                 this.personaje2.setSize(320,587)
             }else if(this.randomNumber2 ==2){
