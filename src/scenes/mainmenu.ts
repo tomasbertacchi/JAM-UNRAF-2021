@@ -4,7 +4,6 @@ export default class mainmenu extends Phaser.Scene{
     
     public jugar!: any
     public tutorial!: any
-    public randomNumber!: number
     constructor(){
         super("menu");
     }

@@ -37,7 +37,7 @@ export default class game extends Phaser.Scene
 	}
 
     create(){
-       // console.log("crea escena juego")
+        console.log("crea escena juego")
         //this.scene.run("ui")
         this.estaAtacando = false
         this.debeMoverse = true
@@ -65,6 +65,7 @@ export default class game extends Phaser.Scene
         this.randomNumber1 = Phaser.Math.RoundTo(Phaser.Math.FloatBetween(1,4));
         this.randomNumber2 = Phaser.Math.RoundTo(Phaser.Math.FloatBetween(1,4));
 
+        
         
 
         //Timer
@@ -391,24 +392,24 @@ export default class game extends Phaser.Scene
 
         if(this.estaMuerto && this.sumapunto){
             this.puntuacion2 = 1
-            this.registry.set("puntuacion2", this.puntuacion2)
+            this.registry.set("puntuacion2", this.puntuacion2);console.log("suma punto 2");
             this.sumapunto = false       
             // console.log("Sumapuntos2" + this.puntuacion2)
             if (this.debeMoverse2 == true){
                 this.puntuacion2 = 1
-                this.registry.set("puntuacion2", this.puntuacion2)
-                this.sumapunto = false       
+                this.registry.set("puntuacion2", this.puntuacion2);console.log("suma punto 2");
+                this.sumapunto = false
                 // console.log("Sumapuntos2" + this.puntuacion2)
             }
         }
         if(this.estaMuerto2 && this.sumapunto){
             this.puntuacion1 = 1
-            this.registry.set("puntuacion1", this.puntuacion1)
+            this.registry.set("puntuacion1", this.puntuacion1);console.log("suma punto 1");
             this.sumapunto = false 
             // console.log("Sumapuntos" + this.puntuacion1)   
             if (this.debeMoverse == true){
                 this.puntuacion1 = 1
-                this.registry.set("puntuacion1", this.puntuacion1)
+                this.registry.set("puntuacion1", this.puntuacion1);console.log("suma punto 1");
                     this.sumapunto = false 
             }        
         }

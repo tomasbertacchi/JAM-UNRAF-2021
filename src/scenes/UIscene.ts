@@ -13,6 +13,8 @@ export default class UIscene extends Phaser.Scene
 	private score2!: any
 	private randomNumber!: number
     private bg!: Phaser.GameObjects.Image
+	private timedEvent!: any
+	
 
 	constructor(scene: Scene)
 	{
@@ -20,6 +22,10 @@ export default class UIscene extends Phaser.Scene
 	}
 
     create(){
+
+		this.timedEvent = this.time.addEvent({ delay: 500, callback: this.onSecond, callbackScope: this, loop: false });
+		this.timedEvent.paused = true;
+
 		//Random BG
         this.randomNumber = Phaser.Math.RoundTo(Phaser.Math.FloatBetween(1,2));
         this.bg = this.add.image(0,0, "bg"+this.randomNumber).setOrigin(0,0)
@@ -47,15 +53,30 @@ export default class UIscene extends Phaser.Scene
 		
 		//this.registry.events.on("changedata", this.updatePuntos, this)
 		
-		this.registry.events.on('changedata', (parent, key, data) => { 
+		this.registry.events.on('changedata', (parent, key, data) => {
 			if (key == 'puntuacion1'){
 				this.score1 = this.score1+data
-				//console.log(data)
+				console.log(data)
 				this.numeropuntuacion1.setText(this.score1)
+				if (this.score1 == 5){
+					this.timedEvent.paused = false;
+					//this.scene.start("gameover");this.scene.stop("ui");this.scene.stop("game")
+					this.score1=0
+					this.score2=0
+					data=0
+				}
             }
             if (key == "puntuacion2"){
 				this.score2 = this.score2+data
+				console.log(data)
 				this.numeropuntuacion2.setText(this.score2)
+				if (this.score2 == 5){
+					this.timedEvent.paused = false;
+					//this.scene.start("gameover");this.scene.stop("ui");this.scene.stop("game")
+					this.score1=0
+					this.score2=0
+					data=0
+				}
             }
         });
 		
@@ -86,6 +107,11 @@ export default class UIscene extends Phaser.Scene
 				.on("pointerdown", ()=> this.player2.setVisible(false))
 			}
 		});
+
+		
     }
 
+	onSecond(){
+        this.scene.start("gameover");this.scene.stop("ui");this.scene.stop("game")
+    }
 }
