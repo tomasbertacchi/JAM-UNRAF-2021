@@ -80,7 +80,7 @@ export default class preloader extends Phaser.Scene
         this.anims.create({
             key: 'escudo1',
             frames: this.anims.generateFrameNumbers('personajedefiende1', { start: 2, end: 2 }),
-            repeat: 0,
+            repeat: -1,
             frameRate: 10,
         });
 
@@ -114,7 +114,7 @@ export default class preloader extends Phaser.Scene
         this.anims.create({
             key: 'escudo2',
             frames: this.anims.generateFrameNumbers('personajedefiende2', { start: 2, end: 2 }),
-            repeat: 0,
+            repeat: -1,
             frameRate: 10,
         });
     
@@ -148,7 +148,7 @@ export default class preloader extends Phaser.Scene
         this.anims.create({
             key: 'escudo3',
             frames: this.anims.generateFrameNumbers('personajedefiende3', { start: 2, end: 2 }),
-            repeat: 0,
+            repeat: -1,
             frameRate: 10,
         });
         
@@ -182,7 +182,7 @@ export default class preloader extends Phaser.Scene
         this.anims.create({
             key: 'escudo4',
             frames: this.anims.generateFrameNumbers('personajedefiende4', { start: 2, end: 2 }),
-            repeat: 0,
+            repeat: -1,
             frameRate: 10,
         });
 

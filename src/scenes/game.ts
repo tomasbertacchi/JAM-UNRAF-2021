@@ -266,7 +266,6 @@ export default class game extends Phaser.Scene
             this.personaje2.setSize(400,587)
             this.personaje2.setOffset(330,0)
         }
-        this.personaje2.play("idle"+this.randomNumber2,true)
     }
         // ATAQUE
        if(Phaser.Input.Keyboard.JustDown(this.cursor_SHIFT) && this.estaAtacando2 == false && this.seDefiende2 == false){
@@ -286,7 +285,7 @@ export default class game extends Phaser.Scene
                     this.personaje2.setSize(500,587)
                     this.personaje2.setOffset(235,0)
                 }
-                this.personaje2.play("ataque"+this.randomNumber2)
+                this.personaje2.play("ataque"+this.randomNumber2, true)
                 .on("animationcomplete", () => {this.personaje2.play("idle"+this.randomNumber2,true); this.debeMoverse2 = true; this.estaAtacando2 = false; if(this.randomNumber2==1){this.personaje2.setSize(320,587)}else if(this.randomNumber2 ==2){this.personaje2.setSize(270,587)}else if(this.randomNumber2 ==3){this.personaje2.setSize(400,587);this.personaje2.setOffset(330,0)}else if(this.randomNumber2 ==4){this.personaje2.setSize(400,587);this.personaje2.setOffset(330,0)}})
             } 
        }
@@ -353,7 +352,7 @@ export default class game extends Phaser.Scene
     ataque(){
 
 
-        if(this.estaAtacando === true && this.seDefiende2 === false){
+        if(this.estaAtacando ==true && this.seDefiende2 == false){
             this.estaMuerto2 = true
             this.vidas2 = this.vidas2 - 1
             this.registry.set("vidas2", this.vidas2)
