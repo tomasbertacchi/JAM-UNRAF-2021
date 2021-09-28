@@ -266,6 +266,7 @@ export default class game extends Phaser.Scene
             this.personaje2.setSize(400,587)
             this.personaje2.setOffset(330,0)
         }
+        this.personaje2.play("idle"+this.randomNumber2,true)
     }
         // ATAQUE
        if(Phaser.Input.Keyboard.JustDown(this.cursor_SHIFT) && this.estaAtacando2 == false && this.seDefiende2 == false){
