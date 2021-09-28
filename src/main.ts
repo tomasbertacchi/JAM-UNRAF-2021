@@ -7,7 +7,6 @@ import UIscene from './scenes/UIscene'
 import pausa from './scenes/pausa'
 
 
-
 const config: Phaser.Types.Core.GameConfig = {
 	type: Phaser.AUTO,
 	width: 1920,

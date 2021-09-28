@@ -34,8 +34,7 @@ export default class UIscene extends Phaser.Scene
 			this.score1 = this.score1
 			this.score2 = this.score2
 		}
-		
-
+	
 		this.tuerca = this.add.image(1850, 100, "tuerca")
 		.setInteractive()
 		.on('pointerdown', () =>{ this.scene.pause("game"); this.scene.run("pausa")});
@@ -89,9 +88,4 @@ export default class UIscene extends Phaser.Scene
 		});
     }
 
-	updatePuntos(parent, key, data){
-
-		this.numeropuntuacion1.setText("Puntuacion P1: " + data)
-		this.numeropuntuacion2.setText("Puntuacion P2: " + data)
-	}
 }
