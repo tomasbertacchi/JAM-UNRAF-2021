@@ -30,6 +30,7 @@ export default class game extends Phaser.Scene
     private revive2!: boolean
     private randomNumber1!: number
     private randomNumber2!: number
+    private sonidogolpe!: Phaser.Sound.BaseSound
 
 	constructor()
 	{
@@ -37,6 +38,11 @@ export default class game extends Phaser.Scene
 	}
 
     create(){
+        this.sonidogolpe = this.sound.add("impacto",{
+            volume: 1,
+            loop: false
+        })
+
         console.log("crea escena juego")
         //this.scene.run("ui")
         this.estaAtacando = false
@@ -355,10 +361,10 @@ export default class game extends Phaser.Scene
 
 
         if(this.estaAtacando ==true && this.seDefiende2 == false){
+            this.sonidogolpe.play()
             this.estaMuerto2 = true
             this.vidas2 = this.vidas2 - 1
             this.registry.set("vidas2", this.vidas2)
-            
            
             // console.log("atacando")
             // console.log(this.vidas2)
@@ -372,10 +378,10 @@ export default class game extends Phaser.Scene
         }
 
         if(this.estaAtacando2 === true && this.seDefiende === false){
+            this.sonidogolpe.play()
             this.estaMuerto = true
             this.vidas = this.vidas - 1
             this.registry.set("vidas1", this.vidas)
-            
             
             // console.log("atacando2")
             // console.log(this.vidas)
@@ -419,11 +425,13 @@ export default class game extends Phaser.Scene
     defensa(){
 
         if(this.estaAtacando === true && this.seDefiende2 === true){
+            this.sonidogolpe.play()
             // console.log("atacando")
             // console.log(this.vidas2)
         }
 
         if(this.estaAtacando2 === true && this.seDefiende === true){
+            this.sonidogolpe.play()
             // console.log("atacando2")
             // console.log(this.vidas)
         }

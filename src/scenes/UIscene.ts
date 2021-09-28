@@ -14,6 +14,8 @@ export default class UIscene extends Phaser.Scene
 	private randomNumber!: number
     private bg!: Phaser.GameObjects.Image
 	private timedEvent!: any
+	private musicagameplay!: Phaser.Sound.BaseSound
+
 	
 
 	constructor(scene: Scene)
@@ -22,6 +24,11 @@ export default class UIscene extends Phaser.Scene
 	}
 
     create(){
+		this.musicagameplay = this.sound.add("musicagameplay", {
+            volume: 0.2,
+            loop: true,
+        })
+        this.musicagameplay.play()
 
 		this.timedEvent = this.time.addEvent({ delay: 500, callback: this.onSecond, callbackScope: this, loop: false });
 		this.timedEvent.paused = true;

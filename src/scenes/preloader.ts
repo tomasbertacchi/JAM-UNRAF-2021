@@ -19,6 +19,10 @@ export default class preloader extends Phaser.Scene
         this.load.image("menu", "assets/escenario/Menu.png")
         this.load.image("tutorial", "assets/escenario/Tutorial.png")
         this.load.image("atras", "assets/escenario/Atras.png")
+        this.load.audio("musicamenu", "assets/sfx/musicamenu.mp3")
+        this.load.audio("musicagameplay", "assets/sfx/musicagameplay.mp3")
+        this.load.audio("impacto", "assets/sfx/impacto.mp3")
+
         
         //Robot
         this.load.spritesheet("personajeparado1", "assets/personaje/Fitz_parado.png",{ frameWidth: 381, frameHeight: 587, endFrame:3  })
