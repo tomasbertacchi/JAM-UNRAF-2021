@@ -12,9 +12,9 @@ export default class gameover    extends Phaser.Scene{
     }
 
     create(){
-        this.textotutorial = this.add.text(1920/2 -500, 1080/2 -100, "GAME OVER",{fontFamily: "Arial", fontSize: 128})
+        this.textotutorial = this.add.image(1920/2 -500, 1080/2 -100, "ganador1")
 
-        this.volver = this.add.text(1920/2-600, 1080/2 +300, "Volver",{fontFamily: "Arial", fontSize: 128})
+        this.volver = this.add.image(1920/2-600, 1080/2 +300, "atras")
         .setInteractive() 
         .on("pointerdown", () => {this.scene.start("menu");this.scene.stop("gameover")})
     

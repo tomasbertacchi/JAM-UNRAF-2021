@@ -10,12 +10,14 @@ export default class mainmenu extends Phaser.Scene{
 
 
     create(){
-        this.jugar = this.add.text(1920/2-100, 1080/2 -100, "Play",{fontFamily: "Arial", fontSize: 128})
+        this.add.image(0,0,"menu").setOrigin(0,0)
+
+        this.jugar = this.add.image(1920/2, 1080/2 , "jugar")
         .setInteractive() 
         .on("pointerdown", () => {this.scene.run("ui");this.scene.start("game"); })
         Phaser.Display.Align.CENTER
 
-        this.tutorial = this.add.text(1920/2-200, 1080/2 +200, "Tutorial",{fontFamily: "Arial", fontSize: 128})
+        this.tutorial = this.add.image(1920/2, 1080/2 +200, "tutorial")
         .setInteractive() 
         .on("pointerdown", () => this.scene.start("tutorial"))
         Phaser.Display.Align.CENTER

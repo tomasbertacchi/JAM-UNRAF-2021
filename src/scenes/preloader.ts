@@ -12,6 +12,14 @@ export default class preloader extends Phaser.Scene
 	preload()
     {
         this.load.image("plataforma", "assets/escenario/plataforma.png")
+        this.load.image("creditos", "assets/escenario/Creditos.png")
+        this.load.image("ganador1", "assets/escenario/Ganador1.png")
+        this.load.image("ganador2", "assets/escenario/Ganador2.png")
+        this.load.image("jugar", "assets/escenario/Jugar.png")
+        this.load.image("menu", "assets/escenario/Menu.png")
+        this.load.image("tutorial", "assets/escenario/Tutorial.png")
+        this.load.image("atras", "assets/escenario/Atras.png")
+        
         //Robot
         this.load.spritesheet("personajeparado1", "assets/personaje/Fitz_parado.png",{ frameWidth: 381, frameHeight: 587, endFrame:3  })
         this.load.spritesheet("personajecamina1", "assets/personaje/Fitz_camina.png",{ frameWidth: 381, frameHeight: 587, endFrame:3  })
