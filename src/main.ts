@@ -6,6 +6,8 @@ import game from './scenes/game'
 import UIscene from './scenes/UIscene'
 import pausa from './scenes/pausa'
 import gameover from './scenes/gameover'
+import creditos from './scenes/creditos'
+import gameover2 from './scenes/gameover2'
 
 
 const config: Phaser.Types.Core.GameConfig = {
@@ -20,7 +22,7 @@ const config: Phaser.Types.Core.GameConfig = {
 			, debug: true
 		}
 	},
-	scene: [preloader,mainmenu,tutorial,UIscene, game, pausa, gameover]
+	scene: [preloader,mainmenu,tutorial, creditos,UIscene, game, pausa, gameover,gameover2]
 }
 
 export default new Phaser.Game(config)

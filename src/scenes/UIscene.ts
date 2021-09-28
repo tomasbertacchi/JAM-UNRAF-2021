@@ -14,6 +14,7 @@ export default class UIscene extends Phaser.Scene
 	private randomNumber!: number
     private bg!: Phaser.GameObjects.Image
 	private timedEvent!: any
+	private timedEvent2!: any
 	private musicagameplay!: Phaser.Sound.BaseSound
 
 	
@@ -31,7 +32,9 @@ export default class UIscene extends Phaser.Scene
         this.musicagameplay.play()
 
 		this.timedEvent = this.time.addEvent({ delay: 500, callback: this.onSecond, callbackScope: this, loop: false });
+		this.timedEvent2 = this.time.addEvent({ delay: 500, callback: this.onSecond2, callbackScope: this, loop: false });
 		this.timedEvent.paused = true;
+		this.timedEvent2.paused = true;
 
 		//Random BG
         this.randomNumber = Phaser.Math.RoundTo(Phaser.Math.FloatBetween(1,2));
@@ -78,7 +81,7 @@ export default class UIscene extends Phaser.Scene
 				console.log(data)
 				this.numeropuntuacion2.setText(this.score2)
 				if (this.score2 == 5){
-					this.timedEvent.paused = false;
+					this.timedEvent2.paused = false;
 					//this.scene.start("gameover");this.scene.stop("ui");this.scene.stop("game")
 					this.score1=0
 					this.score2=0
@@ -119,6 +122,10 @@ export default class UIscene extends Phaser.Scene
     }
 
 	onSecond(){
-        this.scene.start("gameover");this.scene.stop("ui");this.scene.stop("game")
+        this.scene.start("gameover");this.scene.stop("ui");this.scene.stop("game"); this.musicagameplay.stop()
+    }
+
+	onSecond2(){
+        this.scene.start("gameover2");this.scene.stop("ui");this.scene.stop("game"); this.musicagameplay.stop()
     }
 }
